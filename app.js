@@ -1,5 +1,27 @@
 var app = angular.module('flapperNews', ['ui.router']);
 
+app.config([
+	'$stateProvider',
+	'$urlRouterProvider',
+	function($stateProvider, $urlRouterProvider) {
+
+	$stateProvider
+		.state('home', {
+			url: '/home',
+			templateUrl: '/home.html',
+			controller: 'MainCtrl'
+		});
+	
+	$stateProvider	
+		.state('posts', {
+			url: '/posts/{id}',
+			templateUrl: '/posts.html',
+			controller: 'PostsCtrl'
+		});
+
+	$urlRouterProvider.otherwise('home');
+}]);
+
 app.factory('posts', [function(){
 	var o = {
 		posts: []
@@ -27,17 +49,10 @@ app.controller('MainCtrl', [
 		 };
 }]);
 
-app.config([
-	'$stateProvider',
-	'$urlRouterProvider',
-	function($stateProvider, $urlRouterProvider) {
+app.controller('PostsCtrl', [
+	'$scope',
+	'$stateParams',
+	'posts',
+function($scope, $stateParams, posts){
 
-	$stateProvider
-		.state('home', {
-		url: '/home',
-		templateUrl: '/home.html',
-		controller: 'MainCtrl'
-		});
-
-	$urlRouterProvider.otherwise('home');
 }]);
